@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
+	<!-- this bean needs to be eagerly pre-instantiated in order for the exporting 
+		to occur; this means that it must not be marked as lazily initialized -->
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=servletCounter" value-ref="simpleCounter" />
+			</map>
+		</property>
+		<property name="server" ref="mbeanServer" />
+	</bean>
+
+	<bean id="simpleCounter" class="fr.soat.demo.jmx.SimpleCounter"/>
+
+	<bean id="timerAspect" class="fr.soat.demo.pointcut.TimerPointcut"/>
+
+	<!-- avec annotation -->
+	<!-- <aop:aspectj-autoproxy />  -->
+
+	<!-- sans annotation -->
+	<aop:config>
+		<aop:pointcut id="servicePointcut"  expression="execution(* fr.soat.demo.jmx.*.*(..))"/>    		
+		<aop:aspect id="loggingAspect" ref="timerAspect">
+		    <aop:around method="log"  pointcut-ref="servicePointcut"/>    		
+	    </aop:aspect>	    
+	</aop:config> 
+
+</beans>

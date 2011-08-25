@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 So@t
+ * Copyright (c) 2011 Khanh Tuong Maudoux <kmx.petals@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -21,29 +21,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package fr.soat.demo;
+package fr.soat.demo.jmx;
 
-//import static org.junit.Assert.assertTrue;
-//import static org.mockito.Mockito.when;
-
-//import org.powermock.api.mockito.PowerMockito;
-//import org.powermock.core.classloader.annotations.PrepareForTest;
+import static junit.framework.Assert.*;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 /**
  * @author khanh
- * 
+ *
  */
+public class SimpleCounterTest {
 
-@RunWith(PowerMockRunner.class)
-// @PrepareForTest({})
-public class MyClassTest {
+    private SimpleCounter simpleCounter;
 
     @Before
-    public void prepare() {
+    public void createSimpleCounter() throws Exception {
+        simpleCounter = new SimpleCounter();
     }
 
+    @Test
+    public void counterShouldInc() {
+        // given
+        simpleCounter.setNbGet(0);
+        // when
+        simpleCounter.inc();
+        // then
+        assertEquals(1, simpleCounter.getNbGet());
+    }
 }

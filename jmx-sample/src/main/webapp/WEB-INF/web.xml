@@ -3,19 +3,17 @@
 	version="3.0">
 
 
-	<!-- context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext*.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener-->
-
-
+	</listener>
 
 	<servlet>
-		<servlet-name>FooServlet</servlet-name>
-		<servlet-class>fr.soat.demo.servlet.FooServlet</servlet-class>
+		<servlet-name>SimpleServlet</servlet-name>
+		<servlet-class>fr.soat.demo.servlet.SimpleServlet</servlet-class>
 		<init-param>
 			<param-name>sleep-time-in-seconds</param-name>
 			<param-value>10</param-value>
@@ -24,12 +22,8 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>FooServlet</servlet-name>
+		<servlet-name>SimpleServlet</servlet-name>
 		<url-pattern>/sample</url-pattern>
 	</servlet-mapping>
 
-	<!-- ejb-ref> <ejb-ref-name>ejb/fooremote</ejb-ref-name> <ejb-ref-type>Session</ejb-ref-type> 
-		<remote>test.FooRemoteIF</remote> </ejb-ref> <ejb-local-ref> <ejb-ref-name>ejb/foo</ejb-ref-name> 
-		<ejb-ref-type>Session</ejb-ref-type> <local>test.FooIF</local> <ejb-link>FooBean</ejb-link> 
-		</ejb-local-refs -->
 </web-app>

@@ -20,6 +20,8 @@
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<jetty.version>7.4.5.v20110725</jetty.version>
 		<servlet.version>3.0-alpha-1</servlet.version>
+		<aspectj.version>1.6.8</aspectj.version>
+		<cglib.version>2.2.2</cglib.version>
 	</properties>
 
 
@@ -90,6 +92,11 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<!-- <dependency> <groupId>mx4j</groupId> <artifactId>mx4j-tools</artifactId> 
 			<version>3.0.1</version> </dependency> -->
 		<dependency>
@@ -97,6 +104,21 @@
 			<artifactId>servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -199,14 +221,9 @@
 
 					<!-- http://localhost:9090/jmx-sample/sample -->
 					<!-- mvn -Dcom.sun.management.jmxremote package jetty:run -->
+					<!-- service:jmx:rmi:///jndi/rmi://localhost:1099/jettyjmx -->
 
 				</configuration>
-
-				<!-- <executions> <execution> <id>start-jetty</id> <phase>pre-integration-test</phase> 
-					<goals> <goal>run</goal> </goals> <configuration> <scanIntervalSeconds>0</scanIntervalSeconds> 
-					<daemon>true</daemon> </configuration> </execution> <execution> <id>stop-jetty</id> 
-					<phase>post-integration-test</phase> <goals> <goal>stop</goal> </goals> </execution> 
-					</executions> -->
 			</plugin>
 		</plugins>
 	</build>
