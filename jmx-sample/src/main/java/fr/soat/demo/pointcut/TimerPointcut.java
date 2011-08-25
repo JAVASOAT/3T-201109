@@ -35,15 +35,16 @@ import org.slf4j.LoggerFactory;
  */
 @Aspect
 public class TimerPointcut {
-    private static Logger LOGGER = LoggerFactory.getLogger(TimerPointcut.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TimerPointcut.class);
 
     @Around("execution(* fr.soat.demo.jmx.*.*(..))")
     public Object log(ProceedingJoinPoint pjp) throws Throwable {
-        long deb = System.nanoTime();
-
+        
+	long deb = System.nanoTime();
         Object ret = pjp.proceed();
-
-        LOGGER.debug("tps execution de [{}]: {}", pjp.getSignature(), (System.nanoTime() - deb));
+        LOGGER.debug("[{}] tps execution de [{}]: {}", new Object[] { (Thread.currentThread().getId()), pjp.getSignature(), (System.nanoTime() - deb) }) ;
         return ret;
+
     }
 }
